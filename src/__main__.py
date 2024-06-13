@@ -12,13 +12,13 @@ generator = 'yarpgen'
 language = 'cpp'
 
 # Absolute path recommended
-GENERATOR_ELF = '/home/workspace/Yarpgen_MemAlloc/build/yarpgen'
+GENERATOR_ELF = '/home/workspace/CompilerTestingRunner/yarpgen'
 GENERATOR_OUTPUT_ROOT = '/home/workspace/testing/'
 BACKUP_FOLDER = '/home/workspace/testing/backup/'
 LOG_FOLDER = '/home/workspace/testing/log/'
 
 # This line is only filled if you are using Csmith
-CSMITH_LIB_ROOT = '/home/workspace/testing/lib'
+CSMITH_LIB_ROOT = '/home/workspace/testing/lib/'
 
 
 TIME_STR = get_current_time_str()
