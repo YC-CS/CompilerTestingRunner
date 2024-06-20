@@ -13,7 +13,7 @@ language = 'cpp'
 
 # Absolute path recommended
 GENERATOR_ELF = '/home/workspace/CompilerTestingRunner/yarpgen'
-GENERATOR_OUTPUT_ROOT = '/home/workspace/testing/'
+GENERATOR_OUTPUT_ROOT = '/home/workspace/cases/'
 BACKUP_FOLDER = '/home/workspace/testing/backup/'
 LOG_FOLDER = '/home/workspace/testing/log/'
 
@@ -131,22 +131,18 @@ def process_compiler(compiler: str, options: list):
             if generator == 'csmith':
                 compile_cmd = compiler + ' -I ' + CSMITH_LIB_ROOT + ' -' + opt + ' ' + case_file + ' -o ' + elf_name
             elif generator == 'yarpgen':
-                compile_cmd = compiler + ' -' + opt + ' ' + case_file + ' -o ' + elf_name
+                compile_cmd = compiler + ' -mcmodel=large -' + opt + ' ' + case_file + ' -o ' + elf_name
             compile_state = compile_elf(compile_cmd)
             if compile_state == State.COMPILE_TIMEOUT:
-                assert not os.path.exists(GENERATOR_OUTPUT_ROOT + elf_name)
                 write_file(compile_cmd + '\n', ct_file)
                 insert_to_dict(case_file, compilation_timeout_files, elf_name)
                 backup_file(case_file)
                 continue
             elif compile_state == State.COMPILE_CRASH:
-                assert not os.path.exists(GENERATOR_OUTPUT_ROOT + elf_name)
                 insert_to_dict(case_file, compiler_internal_error, elf_name)
                 write_file(compile_cmd + '\n', cie_file)
                 backup_file(case_file)
                 continue
-            else:
-                assert os.path.exists(GENERATOR_OUTPUT_ROOT + elf_name)
 
             execute_state, ret_val = execute_elf(elf_name)
             # record all
