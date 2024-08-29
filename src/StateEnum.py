@@ -26,3 +26,7 @@ class State(Enum):
     EXECUTION_TIMEOUT = 5
     EXECUTION_CRASH = 6
 
+
+class Generator():
+    csmith = 1
+    yarpgen = 2
